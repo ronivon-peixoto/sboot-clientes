@@ -1,13 +1,14 @@
 
-# Sobre a aplicação - sboot-clientes (REST API)
-Esta aplicação é responsável pelo cadastro, consulta e manutenção dos dados do cliente.
+# Sobre a aplicação
+Esta aplicação é um exemplo de API para cadastro, consulta e manutenção dos dados de clientes.
 
 
 ## Tecnologias utilizadas
-Este projeto foi desenvolvido com Java 11 e Spring Boot 2 - também foi utilizado o MySQL para persistência dos dados.
+Java 11, Spring Boot, Swagger-UI, MySQL e Docker.
 
 
 ## O modelo
+Seria interessante dividirmos os dados entre as entidades (Pessoa, Cliente) - mais, para efeito de exemplificação da API, resolvi manter todos eles em uma mesma tabela.
 
 Detalhes da tabela "cliente":
 | campo | tipo |
@@ -50,20 +51,20 @@ Esta API expõe um endpoint dedicado às consultas relacionadas ao Cliente. Dent
 Operadores utilizados nas consultas:
 | operador | descrição |
 | ------ | ------ |
-| : | Testa a "presença do valor" em campos do tipo Strings (LIKE %valor%) e igualdade para os demais tipos |
-| < | Testa valores "menor que" o informado |
-| > | Testa valores "maior que" o informado |
+| : | Testa a "presença do valor" em campos do tipo Strings (LIKE %valor%) e igualdade para os demais tipos. |
+| < | Testa valores "menor que" o informado. |
+| > | Testa valores "maior que" o informado. |
 
 
 Exemplo de consultas:
 | query | descrição |
 | ------ | ------ |
-| /v1/clientes | Sem critérios de filtragem - Retorna dados com paginação e ordenação padrão |
-| /v1/clientes?search=nome:ana | Retorna os registros contendo a palavra "ana" em qualquer parte do nome |
-| /v1/clientes?search=id>5,id<10 | Retorna os registros contendo ID maior que 5 (cinco) e menor que 10 (dez) |
-| /v1/clientes?page=0&size=10 | Realiza a 1ª página contendo os 10 primeiros registros |
-| /v1/clientes?sort=id,desc | Realiza a ordenação descendente dos registros através do ID |
-| /v1/clientes?search=nome:ana,endereco:São,id>13&page=0&size=5&sort=id,desc | Exemplo de combinação entre filtros, paginação e ordenação |
+| /v1/clientes | Sem critérios de filtragem - Retorna dados com paginação e ordenação padrão. |
+| /v1/clientes?search=nome:ana | Retorna os registros contendo a palavra "ana" em qualquer parte do nome. |
+| /v1/clientes?search=id>5,id<10 | Retorna os registros contendo ID maior que 5 (cinco) e menor que 10 (dez). |
+| /v1/clientes?page=0&size=10 | Realiza a 1ª página contendo os 10 primeiros registros. |
+| /v1/clientes?sort=id,desc | Realiza a ordenação descendente dos registros através do ID. |
+| /v1/clientes?search=nome:ana,endereco:São,id>13&page=0&size=5&sort=id,desc | Exemplo de combinação entre filtros, paginação e ordenação. |
 
 
 ## Testando a aplicação através do Swagger-UI
