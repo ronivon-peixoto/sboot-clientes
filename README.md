@@ -71,7 +71,7 @@ Esta API expõe um endpoint dedicado às consultas relacionadas aos Clientes. De
 | /v1/clientes?search=id>5,id<10 | Retorna os registros contendo ID maior que 5 (cinco) e menor que 10 (dez). |
 | /v1/clientes?page=0&size=10 | Retorna a 1ª página contendo os 10 primeiros registros. |
 | /v1/clientes?sort=id,desc | Realiza a ordenação descendente dos registros através do ID. |
-| /v1/clientes?search=nome:ana,endereco:São,id>13&page=0&size=5&sort=id,desc | Exemplo de combinação entre filtros, paginação e ordenação. |
+| /v1/clientes?search=nome:pizzaria,email:calebe,id>10&page=0&size=10&sort=id,asc | Exemplo de combinação entre filtros, paginação e ordenação. |
 
 ### Exemplo de retorno da consulta
 ```json
