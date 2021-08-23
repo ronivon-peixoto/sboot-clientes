@@ -59,12 +59,11 @@ Exemplo de consultas:
 | query | descrição |
 | ------ | ------ |
 | /v1/clientes | Sem critérios de filtragem - Retorna dados com paginação e ordenação padrão |
-| /v1/clientes?search=nome:carvalho | Retorna os registros contendo a palavra "carvalho" em qualquer parte do nome |
-| /v1/clientes?search=id>1,id<3 | Retorna os registros contendo ID maior que 1 (um) e menor que 3 (três) |
+| /v1/clientes?search=nome:ana | Retorna os registros contendo a palavra "ana" em qualquer parte do nome |
+| /v1/clientes?search=id>5,id<10 | Retorna os registros contendo ID maior que 5 (cinco) e menor que 10 (dez) |
 | /v1/clientes?page=0&size=10 | Realiza a 1ª página contendo os 10 primeiros registros |
 | /v1/clientes?sort=id,desc | Realiza a ordenação descendente dos registros através do ID |
-| ------ | ------ |
-| /v1/clientes?search?nome:ME,id<5,email:gmail&page=1&size=5&sort=id,desc | Exemplo de combinação entre filtros, paginação e ordenação |
+| /v1/clientes?search=nome:ana,endereco:São,id>13&page=0&size=5&sort=id,desc | Exemplo de combinação entre filtros, paginação e ordenação |
 
 
 ## Testando a aplicação através do Swagger-UI
