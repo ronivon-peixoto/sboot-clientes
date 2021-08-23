@@ -46,7 +46,7 @@ docker-compose up -d
 ```
 
 ## O end-point de consultas
-Esta API expõe um endpoint dedicado às consultas relacionadas ao Cliente. Dentre as diversas possibilidades, podemos combinar critérios para filtragem por vários campos, ajustar a paginação e a ordenação dos dados.
+Esta API expõe um endpoint dedicado às consultas relacionadas aos Clientes. Dentre as diversas possibilidades, podemos combinar critérios para filtragem por vários campos, ajustar a paginação e a ordenação dos dados.
 
 
 Operadores utilizados nas consultas:
@@ -69,9 +69,9 @@ Exemplo de consultas:
 
 
 ## Testando a aplicação através do Swagger-UI
-Esta aplicação pode ser testada a partir da interface (Swagger UI): [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+Considerando esta aplicação funcionando em ambiente (local), ela poderá ser facilmente testada a partir da interface (Swagger UI): [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 
 ## Testando a aplicação através do Postman
-Existe um diretório "/postman" na raiz do projeto, contendo uma coleção do Postman com as chamadas aos end-points da API.
+Existe um diretório "/postman" na raiz do projeto, contendo uma coleção do Postman com a configuração das chamadas aos end-points expostos pela API.
 
