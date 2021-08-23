@@ -26,6 +26,7 @@ O diretório "/mysql" presente na raiz do projeto possui 2 sub-diretórios.
 * (initdb) Contém um arquivo "dbclientes.sql" para criação da tabela e inserção da carga inicial dos dados.
 * (storage) Poderá ser referenciado como "volume" pelo container do MySQL.
 
+Obs: Os dados referentes a carga inicial do MySQL foram gerados no site [4Devs - Ferramentas online](https://www.4devs.com.br/gerador_de_pessoas).
 
 ## Sobre o Dockerfile
 O arquivo Dockerfile presente na raiz do projeto é responsável pela criação da "imagem" a ser utilizada pelo docker para instanciar o container da aplicação (Java/Spring-boot). Este arquivo está sendo referenciado pelo "docker-compose.yml".
