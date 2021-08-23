@@ -95,7 +95,7 @@ Esta API expõe um endpoint dedicado às consultas relacionadas aos Clientes. De
   },
   "_links": {
     "self": {
-      "href": "http://localhost:8080/v1/clientes?search=nome%3Apizzaria&page=0&size=10&sort=id,asc"
+      "href": "http://localhost:8080/v1/clientes?search=nome%3Apizzaria%2Cemail%3Acalebe%2Cid%3E10&page=0&size=10&sort=id,asc"
     }
   },
   "page": {
