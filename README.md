@@ -7,8 +7,8 @@ Esta aplicação é um exemplo de API para cadastro, consulta e manutenção dos
 Java 11, Spring Boot, Swagger-UI, MySQL e Docker.
 
 
-## Sobre o modelo
-Seria interessante dividirmos as responsabilidades entre as entidades (Pessoa e Cliente) - mais, para efeito de exemplificação da API, resolvi manter apenas uma tabela (Cliente).
+## Sobre o modelo de dados
+Seria interessante dividirmos as responsabilidades entre as entidades (Pessoa e Cliente) - mais, por hora, resolvi manter apenas uma tabela (Cliente).
 
 Detalhes da tabela "cliente":
 | campo | tipo |
@@ -28,11 +28,11 @@ O diretório "/mysql" presente na raiz do projeto possui 2 sub-diretórios.
 
 Obs: Os dados referentes a carga inicial do MySQL foram gerados no site [4Devs - Ferramentas online](https://www.4devs.com.br/gerador_de_pessoas).
 
-## Sobre o Dockerfile
+## Sobre o arquivo "Dockerfile"
 O arquivo "Dockerfile" presente na raiz do projeto é responsável pela criação da "imagem" a ser utilizada pelo docker para instanciar o container da aplicação (Java/Spring-boot). Este arquivo está sendo referenciado pelo "docker-compose.yml".
 
 
-## Sobre o docker-compose.yml
+## Sobre o arquivo "docker-compose.yml"
 O arquivo "docker-compose.yml" contém as configurações necessárias para construir e orquestrar os 2 containers (mysql_db, sboot-clientes) necessários para o funcionamento desta aplicação.
 
 
@@ -59,14 +59,14 @@ Esta API expõe um endpoint dedicado às consultas relacionadas aos Clientes. De
 ### Operadores
 | operador | descrição |
 | ------ | ------ |
-| : | Testa a "presença do valor" em campos do tipo Strings (LIKE %valor%) e igualdade para os demais tipos. |
+| : | Testa a "presença do valor" em campos do tipo String (LIKE %valor%) e igualdade para os demais tipos. |
 | < | Testa valores "menor que" o informado. |
 | > | Testa valores "maior que" o informado. |
 
-### Exemplos de consulta:
-| query | descrição |
+### Exemplos de consulta
+| consulta | descrição |
 | ------ | ------ |
-| /v1/clientes | Sem critérios de filtragem - Retorna dados com paginação e ordenação padrão. |
+| /v1/clientes | Sem critérios de filtragem - Retorna os dados com paginação e ordenação padrão. |
 | /v1/clientes?search=nome:ana | Retorna os registros contendo a palavra "ana" em qualquer parte do nome. |
 | /v1/clientes?search=id>5,id<10 | Retorna os registros contendo ID maior que 5 (cinco) e menor que 10 (dez). |
 | /v1/clientes?page=0&size=10 | Retorna a 1ª página contendo os 10 primeiros registros. |
