@@ -63,7 +63,7 @@ Esta API expõe um endpoint dedicado às consultas relacionadas aos Clientes. De
 | < | Testa valores "menor que" o informado. |
 | > | Testa valores "maior que" o informado. |
 
-### Exemplos:
+### Exemplos de consulta:
 | query | descrição |
 | ------ | ------ |
 | /v1/clientes | Sem critérios de filtragem - Retorna dados com paginação e ordenação padrão. |
@@ -73,6 +73,39 @@ Esta API expõe um endpoint dedicado às consultas relacionadas aos Clientes. De
 | /v1/clientes?sort=id,desc | Realiza a ordenação descendente dos registros através do ID. |
 | /v1/clientes?search=nome:ana,endereco:São,id>13&page=0&size=5&sort=id,desc | Exemplo de combinação entre filtros, paginação e ordenação. |
 
+### Exemplo de retorno da consulta
+```json
+{
+  "_embedded": {
+    "clienteVOList": [
+      {
+        "id": 21,
+        "nome": "Calebe e Guilherme Pizzaria Delivery ME",
+        "tipoDocumento": "CNPJ",
+        "documento": "51492658000107",
+        "email": "diretoria@calebepizzaria.com.br",
+        "endereco": "Praça Júlio Rodrigues, 588 - Araras-SP",
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/v1/clientes/21"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/v1/clientes?search=nome%3Apizzaria&page=0&size=10&sort=id,asc"
+    }
+  },
+  "page": {
+    "size": 10,
+    "totalElements": 1,
+    "totalPages": 1,
+    "number": 0
+  }
+}
+```
 
 ## Testando a aplicação através do Swagger-UI
 Esta aplicação poderá ser testada a partir da interface (Swagger UI): [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
