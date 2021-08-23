@@ -48,16 +48,22 @@ docker-compose up -d
 ## O end-point de consultas
 Esta API expõe um endpoint dedicado às consultas relacionadas aos Clientes. Dentre as diversas possibilidades, podemos combinar critérios para filtragem por vários campos, ajustar a paginação e a ordenação dos dados.
 
+### Parâmetros disponíveis
+| parâmetro | obrigatório | valor padrão | descrição |
+| ------ | ------ | ------ | ------ |
+| search | Não | --- | Parâmetro de consulta personalizada. |
+| page | Não | 0 (zero) | Número da página (zero para a primeira página). |
+| size | Não | 10 (dez) | Quantidade de registros por página. |
+| sort | Não | id,asc | Valor combinado para ordenação (campo/ direção). Ex: "nome,desc". |
 
-Operadores utilizados nas consultas:
+### Operadores
 | operador | descrição |
 | ------ | ------ |
 | : | Testa a "presença do valor" em campos do tipo Strings (LIKE %valor%) e igualdade para os demais tipos. |
 | < | Testa valores "menor que" o informado. |
 | > | Testa valores "maior que" o informado. |
 
-
-Exemplo de consultas:
+### Exemplos:
 | query | descrição |
 | ------ | ------ |
 | /v1/clientes | Sem critérios de filtragem - Retorna dados com paginação e ordenação padrão. |
