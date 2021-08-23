@@ -8,7 +8,7 @@ Java 11, Spring Boot, Swagger-UI, MySQL e Docker.
 
 
 ## O modelo
-Seria interessante dividirmos os dados entre as entidades (Pessoa, Cliente) - mais, para efeito de exemplificação da API, resolvi manter todos eles em uma mesma tabela.
+Seria interessante dividirmos as responsabilidades entre as entidades (Pessoa e Cliente) - mais, para efeito de exemplificação da API, resolvi manter apenas uma tabela (Cliente).
 
 Detalhes da tabela "cliente":
 | campo | tipo |
