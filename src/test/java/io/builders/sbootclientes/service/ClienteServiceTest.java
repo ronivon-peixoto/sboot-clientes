@@ -12,7 +12,6 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -46,10 +45,6 @@ class ClienteServiceTest {
 
 	@InjectMocks
 	private ClienteService clienteService;
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
 
 	@Test
 	@SuppressWarnings("unchecked")
