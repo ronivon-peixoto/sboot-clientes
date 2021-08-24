@@ -21,16 +21,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Builder
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@JsonPropertyOrder({ "id", "nome", "sexo", "tipoDocumento", "documento", "email", "endereco" })
+@JsonPropertyOrder({ "id", "nome", "tipoDocumento", "documento", "email", "endereco" })
 public class ClienteVO extends RepresentationModel<ClienteVO> implements Serializable {
 
 	private static final long serialVersionUID = -8183798242747049538L;
