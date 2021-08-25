@@ -19,8 +19,11 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public final ResponseEntity<ExceptionResponse> handlerBadRequestException(Exception ex, WebRequest request) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(ExceptionResponse.builder()
+				.timestamp(new Date())
+				.message(ex.getMessage())
+				.details(request.getDescription(false))
+				.build(), HttpStatus.BAD_REQUEST);
 	}
 
 	@Override
@@ -32,7 +35,11 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 			String errorMessage = e.getDefaultMessage();
 			errors.put(fieldName, errorMessage);
 		});
-		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(ValidationExceptionResponse.builder()
+				.timestamp(new Date())
+				.fieldErrors(errors)
+				.details(request.getDescription(false))
+				.build(), HttpStatus.BAD_REQUEST);
 	}
 
 }

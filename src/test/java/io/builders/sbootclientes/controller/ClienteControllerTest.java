@@ -114,9 +114,11 @@ class ClienteControllerTest {
 				.content(objectMapper.writeValueAsString(clienteVO))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.nome", is("O nome deve ser informado.")))
-				.andExpect(jsonPath("$.tipoDocumento", is("O tipo de documento deve ser informado.")))
-				.andExpect(jsonPath("$.documento", is("O documento deve ser informado.")))
+				.andExpect(jsonPath("$.fieldErrors").exists())
+				.andExpect(jsonPath("$.fieldErrors.nome", is("O nome deve ser informado.")))
+				.andExpect(jsonPath("$.fieldErrors.tipoDocumento", is("O tipo de documento deve ser informado.")))
+				.andExpect(jsonPath("$.fieldErrors.documento", is("O documento deve ser informado.")))
+				.andExpect(jsonPath("$.details").exists())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON));
 	}
 
@@ -153,8 +155,10 @@ class ClienteControllerTest {
 				.content(objectMapper.writeValueAsString(clienteVO))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.tipoDocumento", is("O tipo de documento deve ser informado.")))
-				.andExpect(jsonPath("$.documento", is("O documento deve ser informado.")))
+				.andExpect(jsonPath("$.fieldErrors").exists())
+				.andExpect(jsonPath("$.fieldErrors.tipoDocumento", is("O tipo de documento deve ser informado.")))
+				.andExpect(jsonPath("$.fieldErrors.documento", is("O documento deve ser informado.")))
+				.andExpect(jsonPath("$.details").exists())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON));
 	}
 

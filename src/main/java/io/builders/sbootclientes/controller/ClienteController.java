@@ -15,6 +15,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.builders.sbootclientes.data.validation.OnUpdate;
 import io.builders.sbootclientes.data.vo.ClienteVO;
 import io.builders.sbootclientes.service.ClienteService;
 import io.builders.sbootclientes.util.SortCriteria;
@@ -75,7 +77,7 @@ public class ClienteController {
 	}
 
 	@PutMapping(produces = { "application/json" }, consumes = { "application/json" })
-	public ClienteVO update(@Valid @RequestBody ClienteVO cliente) {
+	public ClienteVO update(@Validated({ OnUpdate.class }) @RequestBody ClienteVO cliente) {
 		ClienteVO clienteVO = clienteService.update(cliente);
 		clienteVO.add(linkTo(methodOn(ClienteController.class).findById(clienteVO.getId())).withSelfRel());
 		return clienteVO;

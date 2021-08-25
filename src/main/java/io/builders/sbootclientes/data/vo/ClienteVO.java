@@ -14,6 +14,7 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.builders.sbootclientes.data.validation.OnUpdate;
 import io.builders.sbootclientes.entity.Cliente;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,7 @@ public class ClienteVO extends RepresentationModel<ClienteVO> implements Seriali
 
 	private static final long serialVersionUID = -8183798242747049538L;
 
+	@NotNull(message = "O ID deve ser informado.", groups = OnUpdate.class)
 	@JsonProperty("id")
 	private Long id;
 
