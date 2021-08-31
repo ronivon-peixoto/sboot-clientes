@@ -8,7 +8,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import io.builders.sbootclientes.entity.Cliente;
-import io.builders.sbootclientes.entity.TipoDocumento;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -29,11 +28,6 @@ public class ClienteSpecification implements Specification<Cliente> {
 		} else if (criteria.getOperation().equalsIgnoreCase(":")) {
 			if (root.get(criteria.getKey()).getJavaType() == String.class) {
 				return builder.like(root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
-
-			} else if (root.get(criteria.getKey()).getJavaType() == TipoDocumento.class) {
-				TipoDocumento tpDoc = TipoDocumento.from(criteria.getValue());
-				return (tpDoc != null) ? builder.equal(root.get(criteria.getKey()), tpDoc) : null;
-
 			} else {
 				return builder.equal(root.get(criteria.getKey()), criteria.getValue());
 			}

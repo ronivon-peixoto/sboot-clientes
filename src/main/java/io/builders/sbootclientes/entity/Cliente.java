@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,9 +36,8 @@ public class Cliente implements Serializable {
 	@Column(name = "nome", nullable = false, length = 255)
 	private String nome;
 
-	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_documento", nullable = false, length = 4)
-	private TipoDocumento tipoDocumento;
+	private String tipoDocumento;
 
 	@Column(name = "documento", nullable = false, length = 14)
 	private String documento;

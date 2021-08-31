@@ -1,23 +1,34 @@
-package io.builders.sbootclientes.controller;
+package io.builders.sbootclientes.resource.impl;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.hamcrest.core.IsNull;
+import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
+import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,28 +42,37 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.builders.sbootclientes.data.vo.ClienteVO;
 import io.builders.sbootclientes.exception.ResourceNotFoundException;
-import io.builders.sbootclientes.service.ClienteService;
+import io.builders.sbootclientes.service.impl.ClienteServiceImpl;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class ClienteControllerTest {
-	
+class ClienteResourceImplTest {
+
 	private static final Long COD_CLIENTE = 1L;
 	private static final String NOME_CLIENTE = "Theo e Ruan Alimentos ME";
 	private static final String TIPO_DOC_CLIENTE = "CNPJ";
-	private static final String  DOC_CLIENTE = "13197486000141";
-	
+	private static final String DOC_CLIENTE = "13197486000141";
+
 	@Autowired
-    private MockMvc mockMvc;
-	
+	private MockMvc mockMvc;
+
 	@Autowired
 	private ObjectMapper objectMapper;
-	
-    @MockBean
-    private ClienteService clienteService;
 
-    @Test
+	@MockBean
+	private ClienteServiceImpl clienteService;
+
+	@Test
+	void testFindById_NotFound() throws Exception {
+		given(clienteService.findById(COD_CLIENTE)).willReturn(Optional.empty());
+
+		mockMvc.perform(get("/v1/clientes/{id}", COD_CLIENTE)
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound());
+	}
+
+	@Test
 	void testFindById() throws Exception {
     	ClienteVO clienteVO = ClienteVO.builder()
     			.id(COD_CLIENTE)
@@ -61,7 +81,7 @@ class ClienteControllerTest {
     			.documento(DOC_CLIENTE)
     			.build();
 
-		given(clienteService.findById(COD_CLIENTE)).willReturn(clienteVO);
+		given(clienteService.findById(COD_CLIENTE)).willReturn(Optional.of(clienteVO));
 
 		mockMvc.perform(get("/v1/clientes/{id}", COD_CLIENTE)
 				.contentType(MediaType.APPLICATION_JSON))
@@ -75,7 +95,7 @@ class ClienteControllerTest {
 	}
 
 	@Test
-	void testSearch() throws Exception {
+	void testFindAll() throws Exception {
 		ClienteVO clienteVO = ClienteVO.builder()
     			.id(COD_CLIENTE)
     			.nome(NOME_CLIENTE)
@@ -186,18 +206,64 @@ class ClienteControllerTest {
 	}
 
 	@Test
+	void testUpdatePatch_DadosInvalidos() throws Exception {
+		Map<Object, Object> fields = new HashMap<>();
+		fields.put("nome", "");
+
+		Set<ConstraintViolation<ClienteVO>> violations = new HashSet<>();
+		violations.add(ConstraintViolationImpl.forBeanValidation(null, null, null, "O nome deve ser informado.", null,
+				null, null, null, PathImpl.createPathFromString("nome"), null, null));
+
+		doThrow(new ConstraintViolationException(violations)).when(clienteService).updatePatch(any(), any());
+
+		mockMvc.perform(patch("/v1/clientes/{id}", COD_CLIENTE)
+				.content(objectMapper.writeValueAsString(fields))
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.fieldErrors").exists())
+				.andExpect(jsonPath("$.fieldErrors.nome", is("O nome deve ser informado.")))
+				.andExpect(jsonPath("$.details").exists())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+	}
+
+	@Test
+	void testUpdatePatch() throws Exception {
+		Map<Object, Object> fields = new HashMap<>();
+
+		ClienteVO clienteVO = ClienteVO.builder()
+				.id(COD_CLIENTE)
+    			.nome(NOME_CLIENTE)
+    			.tipoDocumento(TIPO_DOC_CLIENTE)
+    			.documento(DOC_CLIENTE)
+    			.build();
+
+		given(clienteService.updatePatch(any(), any())).willReturn(clienteVO);
+
+		mockMvc.perform(patch("/v1/clientes/{id}", COD_CLIENTE)
+				.content(objectMapper.writeValueAsString(fields))
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.id", is(COD_CLIENTE.intValue())))
+				.andExpect(jsonPath("$.nome", is(NOME_CLIENTE)))
+				.andExpect(jsonPath("$.tipoDocumento", is(TIPO_DOC_CLIENTE)))
+				.andExpect(jsonPath("$.documento", is(DOC_CLIENTE)))
+				.andExpect(jsonPath("$.email").value(IsNull.nullValue()))
+				.andExpect(jsonPath("$.endereco").value(IsNull.nullValue()));
+	}
+
+	@Test
 	void testDelete_CodigoInvalido() throws Exception {
-		String message = "Nenhum registro encontrado com o ID informado!";
-		Mockito.doThrow(new ResourceNotFoundException(message)).when(clienteService).delete(0L);
+		String message = "Nenhum registro encontrado.";
+		doThrow(new ResourceNotFoundException(message)).when(clienteService).deleteById(0L);
 
 		mockMvc.perform(delete("/v1/clientes/{id}", 0).contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest())
+				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.message", is(message)));
 	}
 
 	@Test
 	void testDelete() throws Exception {
-		String message = "Registro removido com sucesso!";
+		String message = "Registro excluído com sucesso.";
 
 		mockMvc.perform(delete("/v1/clientes/{id}", COD_CLIENTE).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())

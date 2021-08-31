@@ -3,7 +3,6 @@ package io.builders.sbootclientes.data.vo;
 import java.io.Serializable;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -34,32 +33,32 @@ public class ClienteVO extends RepresentationModel<ClienteVO> implements Seriali
 
 	private static final long serialVersionUID = -8183798242747049538L;
 
-	@NotNull(message = "O ID deve ser informado.", groups = OnUpdate.class)
+	@NotNull(message = "{cliente.id.notnull}", groups = OnUpdate.class)
 	@JsonProperty("id")
 	private Long id;
 
-	@NotBlank(message = "O nome deve ser informado.")
-	@Size(min = 3, max = 255, message = "O nome deve conter entre 3 e 255 caracteres.")
+	@NotNull(message = "{cliente.nome.notnull}")
+	@Size(min = 3, max = 255, message = "{cliente.nome.size}")
 	@JsonProperty("nome")
 	private String nome;
 
-	@NotNull(message = "O tipo de documento deve ser informado.")
-	@Pattern(regexp = "CPF|CNPJ", message = "Informe corretamente o tipo de documento.")
+	@NotNull(message = "{cliente.tipodocumento.notnull}")
+	@Pattern(regexp = "CPF|CNPJ", message = "{cliente.tipodocumento.pattern}")
 	@JsonProperty("tipoDocumento")
 	private String tipoDocumento;
 
-	@NotBlank(message = "O documento deve ser informado.")
-	@Pattern(message = "O documento deve conter apenas números.", regexp = "^[0-9]*$")
-	@Size(min = 11, max = 14, message = "O documento deve conter entre 11 e 14 caracteres.")
+	@NotNull(message = "{cliente.documento.notnull}")
+	@Pattern(regexp = "^[0-9]*$", message = "{cliente.documento.pattern}")
+	@Size(min = 11, max = 14, message = "{cliente.documento.size}")
 	@JsonProperty("documento")
 	private String documento;
 
-	@Email(message = "Informe um e-mail válido.")
-	@Size(min = 7, max = 255, message = "O e-mail deve conter entre 7 e 255 caracteres.")
+	@Email(message = "{cliente.email.valid}")
+	@Size(min = 7, max = 255, message = "{cliente.email.size}")
 	@JsonProperty("email")
 	private String email;
 
-	@Size(min = 0, max = 255, message = "O endereço não pode ultrapassar 255 caracteres.")
+	@Size(min = 0, max = 255, message = "{cliente.endereco.size}")
 	@JsonProperty("endereco")
 	private String endereco;
 

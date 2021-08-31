@@ -75,7 +75,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nome\": \"José Anderson Benício Alves\",\n  \"documento\": \"16904930209\",\n  \"tipoDocumento\": \"CPF\",\n  \"email\": \"joseandersonbenicioalves@yahoo.com.br\",\n  \"endereco\": \"Avenida Vigésima Quarta, 346 - Centro, Macapá-AP\"\n}",
+					"raw": "{\n  \"id\": 26,\n  \"nome\": \"José Ailton dos Santos\",\n  \"documento\": \"16904930209\",\n  \"tipoDocumento\": \"CPF\",\n  \"email\": \"joseandersonbenicioalves@yahoo.com.br\",\n  \"endereco\": \"Avenida Vigésima Quarta, 346 - Centro, Macapá-AP\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -104,7 +104,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": 26,\n  \"nome\": \"José Anderson Benício\",\n  \"documento\": \"16904930209\",\n  \"tipoDocumento\": \"CPF\",\n  \"email\": \"joseandersonbenicioalves@yahoo.com.br\",\n  \"endereco\": \"Avenida Vigésima Quarta, 346 - Centro, Macapá-AP\"\n}",
+					"raw": "{\n    \"id\": 5,\n    \"nome\": \"Rita V. Porto\",\n    \"tipoDocumento\": \"CPF\",\n    \"documento\": \"33119294977\",\n    \"email\": \"ritavalentinaporto@belaggiovini.com.br\",\n    \"endereco\": \"Rua Luzilândia, 756 - Parque Amazônia - Goiânia-GO\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -121,6 +121,36 @@
 					"path": [
 						"v1",
 						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AtualizarAtributosCliente",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"rita@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/clientes/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"clientes",
+						"5"
 					]
 				}
 			},
