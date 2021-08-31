@@ -56,8 +56,8 @@ class ClienteServiceImplTest {
 		Cliente cliente = new Cliente(COD_CLIENTE, NOME_CLIENTE, TIPO_DOC_CLIENTE, DOC_CLIENTE, null, null);
 
 		doReturn(new PageImpl<Cliente>(List.of(cliente)))
-				.when(clienteRepository)
-				.findAll(any(Specification.class), any(Pageable.class));
+			.when(clienteRepository)
+			.findAll(any(Specification.class), any(Pageable.class));
 
 		Pageable pageable = PageRequest.of(0, 10, Sort.by(Direction.ASC, "id"));
 
@@ -177,7 +177,8 @@ class ClienteServiceImplTest {
 				.id(COD_CLIENTE)
 				.nome(NOME_CLIENTE)
 				.tipoDocumento(TIPO_DOC_CLIENTE)
-				.documento(DOC_CLIENTE).build();
+				.documento(DOC_CLIENTE)
+				.build();
 
 		doReturn(Optional.of(Cliente.create(clienteVO))).when(clienteRepository).findById(COD_CLIENTE);
 
@@ -200,7 +201,8 @@ class ClienteServiceImplTest {
 				.id(COD_CLIENTE)
 				.nome(NOME_CLIENTE)
 				.tipoDocumento(TIPO_DOC_CLIENTE)
-				.documento(DOC_CLIENTE).build();
+				.documento(DOC_CLIENTE)
+				.build();
 
 		doReturn(Optional.of(Cliente.create(clienteVO))).when(clienteRepository).findById(COD_CLIENTE);
 		doReturn(Cliente.create(clienteVO)).when(clienteRepository).save(any(Cliente.class));

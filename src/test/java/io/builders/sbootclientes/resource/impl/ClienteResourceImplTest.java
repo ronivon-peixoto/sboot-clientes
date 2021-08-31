@@ -74,12 +74,12 @@ class ClienteResourceImplTest {
 
 	@Test
 	void testFindById() throws Exception {
-    	ClienteVO clienteVO = ClienteVO.builder()
-    			.id(COD_CLIENTE)
-    			.nome(NOME_CLIENTE)
-    			.tipoDocumento(TIPO_DOC_CLIENTE)
-    			.documento(DOC_CLIENTE)
-    			.build();
+		ClienteVO clienteVO = ClienteVO.builder()
+				.id(COD_CLIENTE)
+				.nome(NOME_CLIENTE)
+				.tipoDocumento(TIPO_DOC_CLIENTE)
+				.documento(DOC_CLIENTE)
+				.build();
 
 		given(clienteService.findById(COD_CLIENTE)).willReturn(Optional.of(clienteVO));
 
@@ -97,11 +97,11 @@ class ClienteResourceImplTest {
 	@Test
 	void testFindAll() throws Exception {
 		ClienteVO clienteVO = ClienteVO.builder()
-    			.id(COD_CLIENTE)
-    			.nome(NOME_CLIENTE)
-    			.tipoDocumento(TIPO_DOC_CLIENTE)
-    			.documento(DOC_CLIENTE)
-    			.build();
+				.id(COD_CLIENTE)
+				.nome(NOME_CLIENTE)
+				.tipoDocumento(TIPO_DOC_CLIENTE)
+				.documento(DOC_CLIENTE)
+				.build();
 
 		String query = "nome:ME,id<5";
 		String url = "/v1/clientes?search=".concat(query);
@@ -127,8 +127,8 @@ class ClienteResourceImplTest {
 	@Test
 	void testCreate_DadosInvalidos() throws Exception {
 		ClienteVO clienteVO = ClienteVO.builder()
-    			.email("teste@teste.com")
-    			.build();
+				.email("teste@teste.com")
+				.build();
 
 		mockMvc.perform(post("/v1/clientes")
 				.content(objectMapper.writeValueAsString(clienteVO))
@@ -145,10 +145,10 @@ class ClienteResourceImplTest {
 	@Test
 	void testCreate() throws Exception {
 		ClienteVO clienteVO = ClienteVO.builder()
-    			.nome(NOME_CLIENTE)
-    			.tipoDocumento(TIPO_DOC_CLIENTE)
-    			.documento(DOC_CLIENTE)
-    			.build();
+				.nome(NOME_CLIENTE)
+				.tipoDocumento(TIPO_DOC_CLIENTE)
+				.documento(DOC_CLIENTE)
+				.build();
 
 		given(clienteService.create(clienteVO)).willReturn(clienteVO);
 
@@ -168,9 +168,9 @@ class ClienteResourceImplTest {
 		ClienteVO clienteVO = ClienteVO.builder()
 				.id(COD_CLIENTE)
 				.nome(NOME_CLIENTE)
-    			.email("teste@teste.com")
-    			.build();
-		
+				.email("teste@teste.com")
+				.build();
+
 		mockMvc.perform(put("/v1/clientes")
 				.content(objectMapper.writeValueAsString(clienteVO))
 				.contentType(MediaType.APPLICATION_JSON))
@@ -186,10 +186,10 @@ class ClienteResourceImplTest {
 	void testUpdate() throws Exception {
 		ClienteVO clienteVO = ClienteVO.builder()
 				.id(COD_CLIENTE)
-    			.nome(NOME_CLIENTE)
-    			.tipoDocumento(TIPO_DOC_CLIENTE)
-    			.documento(DOC_CLIENTE)
-    			.build();
+				.nome(NOME_CLIENTE)
+				.tipoDocumento(TIPO_DOC_CLIENTE)
+				.documento(DOC_CLIENTE)
+				.build();
 
 		given(clienteService.update(clienteVO)).willReturn(clienteVO);
 
@@ -232,10 +232,10 @@ class ClienteResourceImplTest {
 
 		ClienteVO clienteVO = ClienteVO.builder()
 				.id(COD_CLIENTE)
-    			.nome(NOME_CLIENTE)
-    			.tipoDocumento(TIPO_DOC_CLIENTE)
-    			.documento(DOC_CLIENTE)
-    			.build();
+				.nome(NOME_CLIENTE)
+				.tipoDocumento(TIPO_DOC_CLIENTE)
+				.documento(DOC_CLIENTE)
+				.build();
 
 		given(clienteService.updatePatch(any(), any())).willReturn(clienteVO);
 
@@ -256,7 +256,8 @@ class ClienteResourceImplTest {
 		String message = "Nenhum registro encontrado.";
 		doThrow(new ResourceNotFoundException(message)).when(clienteService).deleteById(0L);
 
-		mockMvc.perform(delete("/v1/clientes/{id}", 0).contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(delete("/v1/clientes/{id}", 0)
+				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.message", is(message)));
 	}
@@ -265,7 +266,8 @@ class ClienteResourceImplTest {
 	void testDelete() throws Exception {
 		String message = "Registro excluído com sucesso.";
 
-		mockMvc.perform(delete("/v1/clientes/{id}", COD_CLIENTE).contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(delete("/v1/clientes/{id}", COD_CLIENTE)
+				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$", is(message)));
 	}
